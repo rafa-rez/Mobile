@@ -15,7 +15,7 @@ export default function MakeRequest({ navigation }) {
         .post(
           "http://192.168.1.4:3000/portifolio/request",
           {
-            name: name,
+            requisitor: name,
             email: email,
             description: description,
           },
@@ -26,7 +26,7 @@ export default function MakeRequest({ navigation }) {
           }
         )
         .then((res) => {
-          console.log("Foi mano, relaxa");
+          console.log("Deu certo!");
         })
         .catch((err) => {
           console.error(err);

@@ -17,16 +17,14 @@ export default function Insertions({ navigation }) {
       })
       .then((res) => {
         const newUser = {
-          email: res.data.email,
-          nome: res.data.name,
+          nome: res.data.nome,
           token: res.data.token,
-          administrador: res.data.administrador,
+          //administrador: res.data.administrador,
           id: res.data.id,
         };
         setUser(newUser);
         setToken(newUser.token);
-        console.log("TOKEN!!!!!!!!!!!1111: " + token);
-
+        console.log(res.data);
         if (res.data.administrador) {
           navigation.navigate("Options_Adm");
         } else {
