@@ -7,11 +7,14 @@ export default function Insertions({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [user, setUser] = useState({});
+
   const { token, setToken } = useAuth();
+  const { curso, setCurso } = useAuth();
+  const { id, setId } = useAuth();
 
   const handleLogin = () => {
     axios
-      .post("http://192.168.1.4:3000/auth/login", {
+      .post("http://192.168.1.15:3000/auth/login", {
         email: email,
         password: senha,
       })
@@ -21,9 +24,13 @@ export default function Insertions({ navigation }) {
           token: res.data.token,
           //administrador: res.data.administrador,
           id: res.data.id,
+          curso: res.data.curso,
         };
         setUser(newUser);
         setToken(newUser.token);
+        setCurso(newUser.curso);
+        setId(newUser.id);
+
         console.log(res.data);
         if (res.data.administrador) {
           navigation.navigate("Options_Adm");
