@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import axios from "axios";
 
 export default function Insertions({ navigation }) {
@@ -25,34 +25,87 @@ export default function Insertions({ navigation }) {
   const handleGoToLogin = () => {
     navigation.navigate("Insertions");
   };
+
   return (
-    <View>
-      <View>
-        <Text>Nome</Text>
+    <View style={styles.container}>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Nome</Text>
         <TextInput
+          style={styles.input}
           placeholder="Insira seu Nome aqui."
           keyboardType="default"
           value={name}
           onChangeText={(text) => setName(text)}
         />
-        <Text>Email</Text>
+
+        <Text style={styles.label}>Email</Text>
         <TextInput
+          style={styles.input}
           placeholder="Insira seu Email aqui."
           keyboardType="default"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
-        <Text> Senha </Text>
+
+        <Text style={styles.label}>Senha</Text>
         <TextInput
+          style={styles.input}
           placeholder="Insira sua senha aqui."
           keyboardType="default"
           secureTextEntry={true}
           value={senha}
           onChangeText={(text) => setSenha(text)}
         />
-        <Button title="Registrar-se" onPress={handleRegister} />
-        <Button title="Página de Login" onPress={handleGoToLogin} />
+
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.button}
+            title="Registrar-se"
+            onPress={handleRegister}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.button}
+            title="Página de Login"
+            onPress={handleGoToLogin}
+          />
+        </View>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#f0f0f0",
+  },
+  formContainer: {
+    borderRadius: 8,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 15,
+    paddingLeft: 10,
+  },
+  buttonContainer: {
+    marginTop: 10,
+  },
+  button: {
+    width: "80%",
+    alignSelf: "center",
+  },
+});
