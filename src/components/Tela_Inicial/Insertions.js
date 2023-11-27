@@ -14,7 +14,7 @@ export default function Insertions({ navigation }) {
 
   const handleLogin = () => {
     axios
-      .post("http://192.168.1.15:3000/auth/login", {
+      .post("http://192.168.1.10:3000/auth/login", {
         email: email,
         password: senha,
       })
