@@ -1,43 +1,53 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import axios from "axios";
+import useAuth from "../Hook/useAuth";
 
-export default function Registration({ navigation }) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [name, setName] = useState("");
+  const [user, setUser] = useState({});
 
-  const handleRegister = () => {
+  const { token, setToken } = useAuth();
+  const { curso, setCurso } = useAuth();
+  const { id, setId } = useAuth();
+
+  const handleLogin = () => {
     axios
-      .post("http://192.168.1.10:3000/auth/register", {
+      .post("http://192.168.1.10:3000/auth/login", {
         email: email,
-        name: name,
         password: senha,
       })
       .then((res) => {
-        navigation.navigate("Login");
+        const newUser = {
+          nome: res.data.nome,
+          token: res.data.token,
+          id: res.data.id,
+          curso: res.data.curso,
+        };
+        setUser(newUser);
+        setToken(newUser.token);
+        setCurso(newUser.curso);
+        setId(newUser.id);
+
+        if (res.data.administrador) {
+          navigation.navigate("Options_Adm");
+        } else {
+          navigation.navigate("Options_User");
+        }
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
-  const handleGoToLogin = () => {
-    navigation.navigate("Login");
+  const handleGoToRegister = () => {
+    navigation.navigate("Register");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
-        <Text style={styles.label}>Nome</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Insira seu Nome aqui."
-          keyboardType="default"
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
@@ -58,17 +68,13 @@ export default function Registration({ navigation }) {
         />
 
         <View style={styles.buttonContainer}>
-          <Button
-            style={styles.button}
-            title="Registrar-se"
-            onPress={handleRegister}
-          />
+          <Button style={styles.button} title="Logar" onPress={handleLogin} />
         </View>
         <View style={styles.buttonContainer}>
           <Button
             style={styles.button}
-            title="Página de Login"
-            onPress={handleGoToLogin}
+            title="Registrar-se"
+            onPress={handleGoToRegister}
           />
         </View>
       </View>

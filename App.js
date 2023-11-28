@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Insertions from "./src/components/Tela_Inicial/Insertions";
+import Login from "./src/components/Tela_Inicial/Login";
 import Register from "./src/components/Tela_Inicial/Register";
 import OptionsAdm from "./src/components/Tela_Adm/Options_Adm";
 import OptionsUser from "./src/components/Tela_User/Options_User";
@@ -22,8 +22,8 @@ const App = () => {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Insertions">
-          <Stack.Screen name="Insertions" component={Insertions} />
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Options_Adm" component={OptionsAdm} />
           <Stack.Screen name="Options_User" component={OptionsUser} />
           <Stack.Screen name="Register" component={Register} />
