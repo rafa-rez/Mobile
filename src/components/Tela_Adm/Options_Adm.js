@@ -14,6 +14,15 @@ export default function OptionsAdm({ navigation }) {
   const handleGoToAll = () => {
     navigation.navigate("ProjectAll");
   };
+  const handleGoToRemove = () => {
+    navigation.navigate("ProjectRemove");
+  };
+  const handleGoToAdd = () => {
+    navigation.navigate("ProjectAdd");
+  };
+  const handleGoRelations = () => {
+    navigation.navigate("ProjectUser");
+  };
 
   return (
     <View style={styles.container}>
@@ -30,7 +39,16 @@ export default function OptionsAdm({ navigation }) {
         <Button title="Ver todos Projetos" onPress={handleGoToAll} />
       </View>
       <View style={styles.buttonContainer}>
+        <Button title="Ver Relação de Projetos" onPress={handleGoRelations} />
+      </View>
+      <View style={styles.buttonContainer}>
         <Button title="Puxar dados de uma matéria" onPress={handleGoToFind} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Remover Materia" onPress={handleGoToRemove} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Adicionar Curso ao Usuário" onPress={handleGoToAdd} />
       </View>
     </View>
   );

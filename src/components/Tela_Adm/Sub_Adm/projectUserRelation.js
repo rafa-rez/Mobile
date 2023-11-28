@@ -3,21 +3,24 @@ import { View, Text, Button, StyleSheet, FlatList } from "react-native";
 import useAuth from "../../Hook/useAuth";
 import axios from "axios";
 
-export default function ProjectAll({ navigation }) {
+export default function ProjectUserRelation({ navigation }) {
   const { token } = useAuth();
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetchProjectsAll();
+    fetchProjectsUser();
   }, []);
 
-  const fetchProjectsAll = async () => {
+  const fetchProjectsUser = async () => {
     try {
-      const response = await axios.get("http://192.168.1.10:3000/portifolio/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "http://192.168.1.10:3000/portifolio/relations/users",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setProjects(response.data);
     } catch (error) {
       console.error("Erro ao obter projetos do servidor:", error);
@@ -26,9 +29,9 @@ export default function ProjectAll({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.projectContainer}>
-      <Text>Materia: {item.Materia}</Text>
-      <Text>Professores: {item.Professores.join(", ")}</Text>
-      <Text>Cursos: {item.Cursos}</Text>
+      <Text>Nome: {item.name}</Text>
+      <Text>Curso: {item.Curso}</Text>
+      <Text>Id: {item._id}</Text>
     </View>
   );
 
@@ -42,7 +45,7 @@ export default function ProjectAll({ navigation }) {
 
       <FlatList
         data={projects}
-        keyExtractor={(item) => item.Materia}
+        keyExtractor={(item) => item._id.toString()}
         renderItem={renderItem}
       />
 

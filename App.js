@@ -11,6 +11,9 @@ import ProjectFind from "./src/components/Tela_Adm/Sub_Adm/projectFind";
 import ProjectNew from "./src/components/Tela_Adm/Sub_Adm/projectNew";
 import ProjectUpdate from "./src/components/Tela_Adm/Sub_Adm/projectUpdate";
 import ProjectAll from "./src/components/Tela_Adm/Sub_Adm/projectAll";
+import ProjectRemove from "./src/components/Tela_Adm/Sub_Adm/projectRemove";
+import ProjectAdd from "./src/components/Tela_Adm/Sub_Adm/projectAdd";
+import ProjectUserRelation from "./src/components/Tela_Adm/Sub_Adm/projectUserRelation";
 import { AuthProvider } from "./src/components/Context/auth";
 
 const Stack = createStackNavigator();
@@ -30,6 +33,9 @@ const App = () => {
           <Stack.Screen name="ProjectUpdate" component={ProjectUpdate} />
           <Stack.Screen name="ProjectNew" component={ProjectNew} />
           <Stack.Screen name="ProjectAll" component={ProjectAll} />
+          <Stack.Screen name="ProjectRemove" component={ProjectRemove} />
+          <Stack.Screen name="ProjectAdd" component={ProjectAdd} />
+          <Stack.Screen name="ProjectUser" component={ProjectUserRelation} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
