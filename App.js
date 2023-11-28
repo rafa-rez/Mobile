@@ -19,10 +19,20 @@ import { AuthProvider } from "./src/components/Context/auth";
 const Stack = createStackNavigator();
 
 const App = () => {
+  const headerOptions = {
+    headerStyle: {
+      backgroundColor: "#3498db",
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold",
+    },
+  };
+
   return (
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Login" screenOptions={headerOptions}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Options_Adm" component={OptionsAdm} />
           <Stack.Screen name="Options_User" component={OptionsUser} />
