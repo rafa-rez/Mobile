@@ -9,7 +9,7 @@ export default function Insertions({ navigation }) {
 
   const handleRegister = () => {
     axios
-      .post("http://192.168.1.4:3000/auth/register", {
+      .post("http://192.168.1.10:3000/auth/register", {
         email: email,
         name: name,
         password: senha,

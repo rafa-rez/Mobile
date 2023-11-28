@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import useAuth from "../../Hook/useAuth";
 import axios from "axios";
 
-export default function ProjectNew({ navigation }) {
+export default function ProjectUpdate({ navigation }) {
   const [Materia, setMateria] = useState("");
   const [Professores, setProfessores] = useState("");
   const [Cursos, setCursos] = useState("");
@@ -12,13 +12,18 @@ export default function ProjectNew({ navigation }) {
 
   const handleNewProject = () => {
     try {
+      const professoresArray = Professores.split(",").map((professor) =>
+        professor.trim()
+      );
+      const cursosArray = Cursos.split(",").map((curso) => curso.trim());
+
       axios
         .put(
           `http://192.168.1.10:3000/portifolio/${projectId}`,
           {
             Materia: Materia,
-            Professores: Professores,
-            Cursos: Cursos,
+            Professores: professoresArray,
+            Cursos: cursosArray,
           },
           {
             headers: {
@@ -27,7 +32,7 @@ export default function ProjectNew({ navigation }) {
           }
         )
         .then((res) => {
-          alert("Materia atualizada com sucesso.");
+          alert("Matéria atualizada com sucesso.");
         })
         .catch((err) => {
           console.error(err);
@@ -52,10 +57,10 @@ export default function ProjectNew({ navigation }) {
           value={projectId}
           onChangeText={(text) => setProjectId(text)}
         />
-        <Text style={styles.label}>Nova Materia</Text>
+        <Text style={styles.label}>Nova Matéria</Text>
         <TextInput
           style={styles.input}
-          placeholder="Insira a Materia aqui."
+          placeholder="Insira a Matéria aqui."
           keyboardType="default"
           value={Materia}
           onChangeText={(text) => setMateria(text)}
@@ -64,7 +69,7 @@ export default function ProjectNew({ navigation }) {
         <Text style={styles.label}>Novos Professores</Text>
         <TextInput
           style={styles.input}
-          placeholder="Insira os Professores aqui."
+          placeholder="Separe por vírgula (Maria, João, etc..)"
           keyboardType="default"
           value={Professores}
           onChangeText={(text) => setProfessores(text)}
@@ -73,7 +78,7 @@ export default function ProjectNew({ navigation }) {
         <Text style={styles.label}>Novos Cursos Abrangidos</Text>
         <TextInput
           style={styles.input}
-          placeholder="Insira os cursos Abrangidos aqui."
+          placeholder="Separe por vírgula (Ciencias_Matematicas, Engenharias, etc..)."
           keyboardType="default"
           value={Cursos}
           onChangeText={(text) => setCursos(text)}
