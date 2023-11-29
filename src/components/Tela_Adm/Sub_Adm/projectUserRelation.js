@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, FlatList } from "react-native";
-import useAuth from "../../Hook/useAuth";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import axios from "axios";
+import useAuth from "../../Hook/useAuth";
+import Card from "../../Cards/Cards";
 
 export default function ProjectUserRelation({ navigation }) {
   const { token } = useAuth();
   const [projects, setProjects] = useState([]);
+  const [activeBanner, setActiveBanner] = useState(0);
 
   useEffect(() => {
     fetchProjectsUser();
@@ -14,7 +23,7 @@ export default function ProjectUserRelation({ navigation }) {
   const fetchProjectsUser = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.1.10:3000/portifolio/relations/users",
+        "http://192.168.1.5:3000/portifolio/relations/users",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,12 +36,14 @@ export default function ProjectUserRelation({ navigation }) {
     }
   };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.projectContainer}>
-      <Text>Nome: {item.name}</Text>
-      <Text>Curso: {item.Curso}</Text>
-      <Text>Id: {item._id}</Text>
-    </View>
+  const renderItem = ({ item, index }) => (
+    <Card
+      name={item.name}
+      Curso={item.Curso}
+      _id={item._id}
+      index={index}
+      activeIndex={activeBanner}
+    />
   );
 
   const handleGoToAdmOptions = () => {
@@ -41,12 +52,21 @@ export default function ProjectUserRelation({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Todos os Projetos:</Text>
+      <Text style={styles.heading}>Todos os Users e seus Cursos:</Text>
 
       <FlatList
         data={projects}
         keyExtractor={(item) => item._id.toString()}
         renderItem={renderItem}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={(event) => {
+          const scrollX = event.nativeEvent.contentOffset.x;
+          const index = Math.round(scrollX / Dimensions.get("window").width);
+          setActiveBanner(index);
+        }}
+        contentContainerStyle={styles.flatlistContent}
       />
 
       <Button
@@ -70,13 +90,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-  projectContainer: {
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 8,
-  },
   button: {
     marginTop: 20,
+  },
+  flatlistContent: {
+    marginTop: 140,
   },
 });
