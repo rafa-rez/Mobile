@@ -11,7 +11,7 @@ export default function GetSubjects({ navigation }) {
   const handleSubjects = () => {
     try {
       axios
-        .get("http://192.168.1.15:3000/portifolio/subjects/user", {
+        .get("http://192.168.1.5:3000/portifolio/subjects/user", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

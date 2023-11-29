@@ -13,7 +13,7 @@ export default function ProjectAll({ navigation }) {
 
   const fetchProjectsAll = async () => {
     try {
-      const response = await axios.get("http://192.168.1.10:3000/portifolio/", {
+      const response = await axios.get("http://192.168.1.5:3000/portifolio/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +28,7 @@ export default function ProjectAll({ navigation }) {
     <View style={styles.projectContainer}>
       <Text>Materia: {item.Materia}</Text>
       <Text>Professores: {item.Professores.join(", ")}</Text>
-      <Text>Cursos: {item.Cursos}</Text>
+      <Text>Cursos: {item.Cursos.join(", ")}</Text>
     </View>
   );
 
